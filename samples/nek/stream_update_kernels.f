@@ -52,6 +52,22 @@ MODULE STREAM_UPDATE_KERNELS
       INTEGER(C_INT),      VALUE,        INTENT(IN)    :: i_length
     END SUBROUTINE
 
+    SUBROUTINE stream_sum_helmholtz( i_tm1, i_tm2, i_tm3, &
+                                        i_a, i_b, io_c, i_h1, i_h2, i_length ) &
+                                      BIND(C, name='stream_sum_helmholtz')
+      IMPORT :: C_DOUBLE, C_INT
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm1
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm2
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm3
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_a
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_b
+      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(INOUT) :: io_c
+      REAL(KIND=C_DOUBLE), VALUE,        INTENT(IN)    :: i_h1
+      REAL(KIND=C_DOUBLE), VALUE,        INTENT(IN)    :: i_h2
+      INTEGER(C_INT),      VALUE,        INTENT(IN)    :: i_length
+    END SUBROUTINE
+
+
     SUBROUTINE stream_update_helmholtz_no_h2( i_g1, i_g2, i_g3, i_tm1, i_tm2, i_tm3, &
                                               io_c, i_h1, i_length ) &
                                             BIND(C, name='stream_update_helmholtz_no_h2')
@@ -129,22 +145,10 @@ MODULE STREAM_UPDATE_KERNELS
       INTEGER(C_INT),      VALUE,        INTENT(IN)    :: i_length
     END SUBROUTINE
 
-    SUBROUTINE stream_sum_var_helmholtz_no_h2(i_tm1, i_tm2, i_tm3, &
-                                            io_c, i_h1, i_length ) &
-                                          BIND(C, name='stream_sum_var_helmholtz_no_h2')
-      IMPORT :: C_DOUBLE, C_INT
-      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm1
-      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm2
-      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm3
-      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(INOUT) :: io_c
-      REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_h1
-      INTEGER(C_INT),      VALUE,        INTENT(IN)    :: i_length
-    END SUBROUTINE
-
-
-    SUBROUTINE stream_sum_var_helmholtz_noh1h2(i_tm1, i_tm2, i_tm3, &
+   
+    SUBROUTINE stream_sum(i_tm1, i_tm2, i_tm3, &
                                             io_c, i_length ) &
-                                          BIND(C, name='stream_sum_var_helmholtz_noh1h2')
+                                          BIND(C, name='stream_sum')
       IMPORT :: C_DOUBLE, C_INT
       REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm1
       REAL(KIND=C_DOUBLE), DIMENSION(*), INTENT(IN)    :: i_tm2
